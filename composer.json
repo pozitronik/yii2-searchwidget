@@ -9,31 +9,31 @@
 			"email" : "antikillerxxl@gmial.com"
 		}
 	],
-	"require": {
-		"php": ">=8.0",
+	"require" : {
+		"php" : ">=8.0",
+		"kartik-v/yii2-widget-typeahead" : "*"
 	},
-	"require-dev": {
-		"yiisoft/yii2": "dev-master"
+	"require-dev" : {
+		"yiisoft/yii2" : "dev-master"
 	},
-	"autoload": {
-		"psr-4": {
-			"pozitronik\\widgets\\": "src"
+	"autoload" : {
+		"psr-4" : {
+			"pozitronik\\widgets\\" : "src"
 		}
 	},
-	"config": {
-		"process-timeout": 1800,
-		"fxp-asset": {
-			"enabled": false
+	"config" : {
+		"process-timeout" : 1800,
+		"fxp-asset" : {
+			"enabled" : false
 		},
-		"allow-plugins": {
-			"yiisoft/yii2-searchwidget": true
+		"allow-plugins" : {
+			"yiisoft/yii2-composer" : true
 		}
 	},
-	"repositories": [
+	"repositories" : [
 		{
-			"type": "composer",
-			"url": "https://asset-packagist.org"
+			"type" : "composer",
+			"url" : "https://asset-packagist.org"
 		}
 	]
-
 }
