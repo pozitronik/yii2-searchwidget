@@ -12,6 +12,7 @@
 	"require" : {
 		"php" : ">=8.0",
 		"kartik-v/yii2-widget-typeahead" : "*"
+
 	},
 	"require-dev" : {
 		"yiisoft/yii2" : "dev-master",
@@ -19,7 +20,8 @@
 		"codeception/module-phpbrowser" : "*",
 		"codeception/module-asserts" : "*",
 		"codeception/module-yii2" : "*",
-		"codeception/module-filesystem": "*"
+		"codeception/module-filesystem": "*",
+		"vlucas/phpdotenv": "^5.5"
 	},
 	"autoload" : {
 		"psr-4" : {
