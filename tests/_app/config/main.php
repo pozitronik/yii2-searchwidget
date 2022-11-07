@@ -40,7 +40,8 @@ $config = [
 		],
 	],
 	'params' => [
-		'bsVersion' => '4'
+		'bsVersion' => '4',
+		'searchConfig' => require __DIR__ . '/search.php',
 	],
 ];
 
