@@ -14,7 +14,12 @@
 		"kartik-v/yii2-widget-typeahead" : "*"
 	},
 	"require-dev" : {
-		"yiisoft/yii2" : "dev-master"
+		"yiisoft/yii2" : "dev-master",
+		"codeception/codeception" : "^5.0",
+		"codeception/module-phpbrowser" : "*",
+		"codeception/module-asserts" : "*",
+		"codeception/module-yii2" : "*",
+		"codeception/module-filesystem": "*"
 	},
 	"autoload" : {
 		"psr-4" : {
