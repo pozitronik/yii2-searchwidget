@@ -7,19 +7,6 @@
 
 actor: FunctionalTester
 modules:
-  enabled:
-    # add a framework module here
-    - \Helper\Functional
-    - Filesystem
-    - Db
-    - REST:
-        depends: Yii2
-        part: json
-        shortDebugResponse: 600
-    - Asserts
-    - Yii2:
-        configFile: 'config/web.php'
-  step_decorators: ~
-extensions:
-  enabled:
-    - Extensions\WebRootFixerExtension
+    enabled:
+        # add a framework module here
+    step_decorators: ~
