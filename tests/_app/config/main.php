@@ -21,8 +21,8 @@ $config = [
 	'components' => [
 		'searchWidget' => [
 			'class' => SearchWidget::class,
-			'ajaxBackend' => '/site/search',
 			'params' => [
+				'ajaxEndpoint' => '/site/search',
 				'models' => [
 					'Users' => [//<== алиас модели
 						'class' => Users::class,//<== FQN-название ActiveRecord-класса
