@@ -8,30 +8,43 @@ use Yii;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\JsExpression;
 
 /**
  * Class SearchWidget
- * @package app\widgets\search
  */
 class SearchWidget extends Widget {
+	public const COMPONENT_NAME = 'searchWidget';
+
 	public const DEFAULT_LIMIT = 5;
 	public const DEFAULT_METHOD = 'search';
 	public const MAX_PENDING_REQUESTS = 25;//количество параллельных фоновых запросов поиска
 	public const DEFAULT_TEMPLATE_VIEW = 'template';
 
+	public ?string $ajaxEndpoint = null;
+
 	/**
-	 * Функция инициализации и нормализации свойств виджета
+	 * @param string $name
+	 * @param mixed $default
+	 * @return mixed
+	 * @throws Exception
+	 */
+	protected static function getParam(string $name, mixed $default = null):mixed {
+		return ArrayHelper::getValue(Yii::$app->components, sprintf("%s.params.%s", static::COMPONENT_NAME, $name), $default);
+	}
+
+	/**
+	 * @inheritDoc
 	 */
 	public function init():void {
 		parent::init();
 		SearchWidgetAssets::register($this->getView());
+		$this->ajaxEndpoint = static::getParam('ajaxEndpoint');//todo default
 	}
 
 	/**
-	 * Функция возврата результата рендеринга виджета
-	 * @return string
-	 * @throws Exception
+	 * @inheritDoc
 	 */
 	public function run():string {
 		if ([] === $dataset = $this->prepareDataset()) {
@@ -48,8 +61,8 @@ class SearchWidget extends Widget {
 	 */
 	private function prepareDataset():array {
 		$dataset = [];
-		$searchConfig = ArrayHelper::getValue(Yii::$app, 'params.searchConfig', []);
-		foreach ($searchConfig as $alias => $config) {
+		$modelsConfigs = static::getParam('models', []);
+		foreach ($modelsConfigs as $alias => $config) {
 			if (null === $templateString = ArrayHelper::getValue($config, 'template')) {
 				$templateString = $this->render(ArrayHelper::getValue($config, 'templateView', self::DEFAULT_TEMPLATE_VIEW));
 			}
@@ -65,7 +78,7 @@ class SearchWidget extends Widget {
 					'header' => Html::tag('h3', ArrayHelper::getValue($config, 'header', $alias), ['class' => 'suggestion-header'])
 				],
 				'remote' => [
-					'url' => AjaxController::to('search')."?term=QUERY&alias={$alias}",
+					'url' => Url::toRoute([$this->ajaxEndpoint, 'term' => 'QUERY', 'alias' => $alias]),
 					'wildcard' => 'QUERY',
 					'maxPendingRequests' => self::MAX_PENDING_REQUESTS
 				]
