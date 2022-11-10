@@ -1,0 +1,31 @@
+.search-box {
+	margin: 3px 5px 0px 5px;
+}
+
+.suggestion-item {
+	white-space: normal !important;
+	padding: 3px 10px;
+}
+
+.suggestion-header {
+	border-bottom: 1px solid #CCCCCC;
+	margin: 0 !important;
+	padding: 10px;
+}
+
+.suggestion-name {
+	float: left;
+}
+
+.suggestion-secondary {
+	float: left;
+	font-size: smaller;
+}
+
+.suggestion-links {
+	float: right;
+}
+
+.tt-menu {
+	z-index: 10000 !important;
+}

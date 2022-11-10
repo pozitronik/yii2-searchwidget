@@ -1,24 +1,17 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\Unit;
-
 use Codeception\Test\Unit;
 use pozitronik\widgets\SearchHelper;
-use Tests\Support\UnitTester;
 
 /**
- * @covers \pozitronik\widgets\SearchHelper
+ *
  */
 class SearchHelperTest extends Unit {
-
-	protected UnitTester $tester;
-
 	/**
-	 * @inheritDoc
+	 * @var UnitTester
 	 */
-	protected function _before() {
-	}
+	protected $tester;
 
 	/**
 	 * @covers \pozitronik\widgets\SearchHelper::SwitchKeyboard

@@ -1,8 +1,7 @@
 <?php
+declare(strict_types = 1);
 
-declare(strict_types=1);
-
-namespace Tests\Support;
+use Codeception\Actor;
 
 /**
  * Inherited Methods
@@ -15,15 +14,14 @@ namespace Tests\Support;
  * @method void am($role)
  * @method void lookForwardTo($achieveValue)
  * @method void comment($description)
- * @method void pause($vars = [])
+ * @method void pause()
  *
  * @SuppressWarnings(PHPMD)
-*/
-class UnitTester extends \Codeception\Actor
-{
-    use _generated\UnitTesterActions;
+ */
+class UnitTester extends Actor {
+	use _generated\UnitTesterActions;
 
-    /**
-     * Define custom actions here
-     */
+	/**
+	 * Define custom actions here
+	 */
 }
