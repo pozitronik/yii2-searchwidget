@@ -16,6 +16,7 @@
 	},
 	"require-dev" : {
 		"yiisoft/yii2" : "dev-master",
+		"yiisoft/yii2-bootstrap4": "^2.0",
 		"codeception/codeception" : "^4.0",
 		"codeception/module-phpbrowser" : "*",
 		"codeception/module-asserts" : "*",
