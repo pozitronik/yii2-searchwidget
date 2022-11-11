@@ -1,6 +1,8 @@
 <?php /** @noinspection UsingInclusionReturnValueInspection */
 declare(strict_types = 1);
 
+require_once __DIR__.'/ConfigHelper.php';
+
 use app\models\Users;
 use pozitronik\widgets\SearchWidget;
 use yii\caching\DummyCache;
