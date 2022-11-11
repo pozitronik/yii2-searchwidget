@@ -30,7 +30,7 @@ class SearchWidget extends Widget {
 	 * @return mixed
 	 * @throws Exception
 	 */
-	protected static function getParam(string $name, mixed $default = null):mixed {
+	public static function getParam(string $name, mixed $default = null):mixed {
 		return ArrayHelper::getValue(Yii::$app->components, sprintf("%s.params.%s", static::COMPONENT_NAME, $name), $default);
 	}
 
