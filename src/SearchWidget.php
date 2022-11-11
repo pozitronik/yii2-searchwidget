@@ -22,7 +22,7 @@ class SearchWidget extends Widget {
 	public const MAX_PENDING_REQUESTS = 25;//количество параллельных фоновых запросов поиска
 	public const DEFAULT_TEMPLATE_VIEW = 'template';
 
-	public ?string $ajaxEndpoint = null;
+	public ?string $ajaxEndpoint = '/site/search';
 
 	/**
 	 * @param string $name
@@ -40,7 +40,7 @@ class SearchWidget extends Widget {
 	public function init():void {
 		parent::init();
 		SearchWidgetAssets::register($this->getView());
-		$this->ajaxEndpoint = static::getParam('ajaxEndpoint');//todo default
+		$this->ajaxEndpoint = static::getParam('ajaxEndpoint', $this->ajaxEndpoint);
 	}
 
 	/**
