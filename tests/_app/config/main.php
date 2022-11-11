@@ -4,6 +4,7 @@ declare(strict_types = 1);
 use app\models\Users;
 use pozitronik\widgets\SearchWidget;
 use yii\caching\DummyCache;
+use yii\db\Connection;
 use yii\web\AssetManager;
 use yii\web\ErrorHandler;
 
@@ -40,6 +41,14 @@ $config = [
 					]
 				]
 			]
+		],
+		'db' => [
+			'class' => Connection::class,
+			'dsn' => ConfigHelper::getenv('DB_DSN'),
+			'username' => ConfigHelper::getenv('DB_USER'),
+			'password' => ConfigHelper::getenv('DB_PASSWORD'),
+			'charset' => 'utf8',
+			'enableSchemaCache' => false,
 		],
 		'request' => [
 			'cookieValidationKey' => 'sosijopu',

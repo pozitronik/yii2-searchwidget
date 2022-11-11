@@ -10,7 +10,7 @@ modules:
   config:
     Db:
       dsn: "%DB_DSN%"
-      user: "%DB_USERNAME%"
+      user: "%DB_USER%"
       password: "%DB_PASSWORD%"
       dump:
         - 'tests/_data/dumps/test.sql'
