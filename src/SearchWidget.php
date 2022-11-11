@@ -38,6 +38,16 @@ class SearchWidget extends Widget {
 	}
 
 	/**
+	 * Retrieve component configuration parameter
+	 * @param string $name
+	 * @param mixed $default
+	 * @return mixed
+	 * @throws Exception
+	 */
+	public static function getConfigParam(string $name, mixed $default = null):mixed {
+		return ArrayHelper::getValue(Yii::$app->components, sprintf("%s.%s", static::COMPONENT_NAME, $name), $default);
+	}
+	/**
 	 * @inheritDoc
 	 */
 	public function init():void {
