@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace pozitronik\widgets;
 
 use Exception;
+use Throwable;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
@@ -13,6 +14,8 @@ use yii\web\JsExpression;
 
 /**
  * Class SearchWidget
+ * @property string $ajaxEndpoint url for all ajax requests
+ * @property array $models List of models searches configurations
  */
 class SearchWidget extends Widget {
 	public const COMPONENT_NAME = 'searchWidget';
@@ -22,16 +25,16 @@ class SearchWidget extends Widget {
 	public const MAX_PENDING_REQUESTS = 25;//количество параллельных фоновых запросов поиска
 	public const DEFAULT_TEMPLATE_VIEW = 'template';
 
-	public ?string $ajaxEndpoint = '/site/search';
+	public string $ajaxEndpoint = '/site/search';
+	public array $models = [];
 
 	/**
-	 * @param string $name
-	 * @param mixed $default
-	 * @return mixed
-	 * @throws Exception
+	 * Allow to use widget as component: if no parameters passed, configured values will be loaded
+	 * @inheritDoc
 	 */
-	public static function getParam(string $name, mixed $default = null):mixed {
-		return ArrayHelper::getValue(Yii::$app->components, sprintf("%s.params.%s", static::COMPONENT_NAME, $name), $default);
+	public static function widget($config = []):string {
+		if ([] === $config) $config = ArrayHelper::getValue(Yii::$app->components, static::COMPONENT_NAME);
+		return parent::widget($config);
 	}
 
 	/**
@@ -40,7 +43,6 @@ class SearchWidget extends Widget {
 	public function init():void {
 		parent::init();
 		SearchWidgetAssets::register($this->getView());
-		$this->ajaxEndpoint = static::getParam('ajaxEndpoint', $this->ajaxEndpoint);
 	}
 
 	/**
@@ -61,8 +63,7 @@ class SearchWidget extends Widget {
 	 */
 	private function prepareDataset():array {
 		$dataset = [];
-		$modelsConfigs = static::getParam('models', []);
-		foreach ($modelsConfigs as $alias => $config) {
+		foreach ($this->models as $alias => $config) {
 			if (null === $templateString = ArrayHelper::getValue($config, 'template')) {
 				$templateString = $this->render(ArrayHelper::getValue($config, 'templateView', self::DEFAULT_TEMPLATE_VIEW));
 			}
