@@ -3,10 +3,8 @@ declare(strict_types = 1);
 
 namespace pozitronik\widgets;
 
-use Yii;
 use yii\base\Action;
 use yii\base\UnknownPropertyException;
-use yii\helpers\ArrayHelper;
 
 /**
  * Base search action for SearchWidget
@@ -20,13 +18,14 @@ class SearchAction extends Action {
 	 * @throws UnknownPropertyException
 	 */
 	public function run(string $alias, ?string $term):array {
-		if (null !== $ARClass = ArrayHelper::getValue(Yii::$app, "params.searchConfig.{$alias}.class")) {
+		if (null !== $ARClass = SearchWidget::getParam("models.{$alias}.class")) {
 			return SearchHelper::Search(
 				$ARClass,
 				$term,
-				ArrayHelper::getValue(Yii::$app, "params.searchConfig.{$alias}.limit", SearchWidget::DEFAULT_LIMIT),
-				ArrayHelper::getValue(Yii::$app, "params.searchConfig.{$alias}.attributes"),
-				ArrayHelper::getValue(Yii::$app, "params.searchConfig.{$alias}.method", SearchWidget::DEFAULT_METHOD));
+				SearchWidget::getParam("models.{$alias}.limit", SearchWidget::DEFAULT_LIMIT),
+				SearchWidget::getParam("models.{$alias}.attributes"),
+				SearchWidget::getParam("models.{$alias}.method", SearchWidget::DEFAULT_METHOD)
+			);
 		}
 		return [];
 	}
