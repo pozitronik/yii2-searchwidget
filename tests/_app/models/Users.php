@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace app\models;
 
+use Faker\Factory;
 use Yii;
 use yii\base\Event;
 use yii\behaviors\AttributeBehavior;
@@ -14,9 +15,12 @@ use yii\web\IdentityInterface;
  * This is the model class for table "sys_users".
  *
  * @property int $id
- * @property string $username Отображаемое имя пользователя
- * @property string $login Логин
- * @property string $password Хеш пароля либо сам пароль (если $salt пустой)
+ * @property string $login User login
+ * @property string $username User's name
+ * @property string $password Password or password hash
+ * @property null|string $salt Password salt
+ * @property null|string $email User's email
+ * @property null|string $comment Any comment about the user
  * @property-read string $authKey @see [[yii\web\IdentityInterface::getAuthKey()]]
  */
 class Users extends ActiveRecord implements IdentityInterface {
@@ -54,20 +58,9 @@ class Users extends ActiveRecord implements IdentityInterface {
 	 */
 	public function rules():array {
 		return [
-			[['username', 'login', 'password'], 'string'],
+			[['username', 'login', 'password', 'salt', 'comment'], 'string'],
+			[['email'], 'email'],
 			[['username', 'login', 'password'], 'required']
-		];
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function attributeLabels():array {
-		return [
-			'id' => 'ID',
-			'username' => 'Имя пользователя',
-			'login' => 'Логин',
-			'password' => 'Пароль',
 		];
 	}
 
@@ -107,7 +100,6 @@ class Users extends ActiveRecord implements IdentityInterface {
 	}
 
 	/**
-	 * Создать пользователя
 	 * @return static
 	 */
 	public static function CreateUser(?int $id = null):self {
@@ -129,6 +121,24 @@ class Users extends ActiveRecord implements IdentityInterface {
 		}
 		$this->refresh();
 		return $this;
+	}
+
+	/**
+	 * @param int $count
+	 * @return void
+	 */
+	public static function GenerateUsers(int $count = 100):void {
+		$factory = Factory::create();
+		for ($c = 0; $c < $count; $c++) {
+			(new Users([
+				'login' => $factory->userName,
+				'username' => $factory->name,
+				'password' => $factory->password,
+				'salt' => null,//doesn't matter
+				'email' => $factory->email,
+				'comment' => $factory->realText(255)
+			]))->save();
+		}
 	}
 
 }
