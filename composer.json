@@ -22,7 +22,8 @@
 		"codeception/module-asserts" : "*",
 		"codeception/module-yii2" : "*",
 		"codeception/module-filesystem": "*",
-		"vlucas/phpdotenv": "^5.5"
+		"vlucas/phpdotenv": "^5.5",
+		"fakerphp/faker": "^1.20"
 	},
 	"autoload" : {
 		"psr-4" : {
