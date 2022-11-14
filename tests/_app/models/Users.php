@@ -58,9 +58,10 @@ class Users extends ActiveRecord implements IdentityInterface {
 	 */
 	public function rules():array {
 		return [
-			[['username', 'login', 'password', 'salt', 'comment'], 'string'],
+			[['username', 'login', 'password', 'comment'], 'string'],
 			[['email'], 'email'],
-			[['username', 'login', 'password'], 'required']
+			[['username', 'login', 'password'], 'required'],
+			['salt', 'safe']
 		];
 	}
 
