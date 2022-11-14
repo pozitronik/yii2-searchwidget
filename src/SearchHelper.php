@@ -4,6 +4,8 @@ declare(strict_types = 1);
 namespace pozitronik\widgets;
 
 use Exception;
+use Yii;
+use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\base\UnknownPropertyException;
 use yii\db\ActiveRecord;
@@ -20,6 +22,24 @@ class SearchHelper {
 	public const SEARCH_TYPE_LIKE_ENDING = 'like%';
 
 	/**
+	 * Creates or re-creates a object using the given configuration
+	 * @param string|array|callable|object $type The object or object type (like in Yii::createObject)
+	 * @param array $params The object configuration array
+	 * @param bool $recreate If object is passed in $type, then recreate it with given configuration
+	 * @return object The created object
+	 * @throws InvalidConfigException
+	 */
+	public static function createObject(string|array|callable|object $type, array $params = [], bool $recreate = false):object {
+		if (is_object($type)) {
+			if ($recreate) {
+				$type = $type::class;
+			} else return $type;
+		}
+		return Yii::createObject($type, $params);
+	}
+
+	/**
+	 * Switches between qwerty/йцукен layouts (used for independent searches)
 	 * @param string $term
 	 * @param bool $fromQWERTY
 	 * @return string
@@ -56,61 +76,14 @@ class SearchHelper {
 	}
 
 	/**
-	 * Возвращает список всех аттрибутов поисковой модели, вычисленный через rules()
-	 * @param string|Model $modelClass
-	 * @return array
-	 */
-	public static function GetSearchAttributes(string|Model $modelClass):array {
-		$model = (is_string($modelClass))
-			?new $modelClass()
-			:$modelClass;
-		$searchFields = [[]];
-		foreach ($model->rules() as $rule) {
-			$searchFields[] = (array)$rule[0];
-		}
-		return array_merge(...$searchFields);
-	}
-
-	/**
-	 * Возвращает значения всех аттрибутов поисковой модели, вычисленный через rules()
-	 * @param string|Model $modelClass
-	 * @return array
-	 */
-	public static function GetSearchAttributesValues(string|Model $modelClass):array {
-		$model = (is_string($modelClass))
-			?new $modelClass()
-			:$modelClass;
-		$result = [];
-		foreach (static::GetSearchAttributes($model) as $attribute) {
-			$result[$attribute] = $model->$attribute;
-		}
-		return $result;
-	}
-
-	/**
-	 * @param string|Model $modelClass
-	 * @return array
-	 */
-	public static function GetSafeAttributesValues(string|Model $modelClass):array {
-		$model = (is_string($modelClass))
-			?new $modelClass()
-			:$modelClass;
-		$result = [];
-		foreach ($model->safeAttributes() as $attribute) {
-			$result[$attribute] = $model->$attribute;
-		}
-		return $result;
-	}
-
-	/**
+	 * Assumes, which attributes can be used for searches
 	 * @param string|Model $modelClass
 	 * @return array
 	 * @throws Exception
 	 */
-	private static function AssumeSearchAttributes(string|Model $modelClass):array {
-		$model = (is_string($modelClass))
-			?new $modelClass()
-			:$modelClass;
+	public static function AssumeSearchAttributes(string|Model $modelClass):array {
+		/** @var Model $model */
+		$model = static::createObject($modelClass);
 		$searchFields = [[]];
 		foreach ($model->rules() as $rule) {
 			if (in_array(ArrayHelper::getValue($rule, '1'), ['string', 'email'])) {
