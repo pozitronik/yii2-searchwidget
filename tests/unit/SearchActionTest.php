@@ -48,7 +48,8 @@ class SearchActionTest extends Unit {
 		]);
 		$controller = new SiteController('site', Yii::$app);
 		$action = new SearchAction('search', $controller);
-		$result = $action->run('Users', 'иван');
+		$result = $action->run('Users', 'gmail');
 		static::assertIsArray($result);
+		static::assertCount(5, $result);
 	}
 }
