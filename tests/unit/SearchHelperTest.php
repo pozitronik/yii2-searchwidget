@@ -7,7 +7,7 @@ use Codeception\Test\Unit;
 use pozitronik\widgets\SearchHelper;
 
 /**
- * @covers \pozitronik\widgets\SearchHelper
+ * @covers \SearchHelper
  */
 class SearchHelperTest extends Unit {
 

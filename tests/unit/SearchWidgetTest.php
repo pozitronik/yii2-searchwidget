@@ -4,11 +4,11 @@ use Codeception\Test\Unit;
 use pozitronik\widgets\SearchWidget;
 
 /**
- * @covers \pozitronik\widgets\SearchWidget
+ * @covers SearchWidget
  */
 class SearchWidgetTest extends Unit {
 	/**
-	 * @covers \pozitronik\widgets\SearchWidget::widget
+	 * @covers SearchWidget::widget
 	 * @return void
 	 * @throws Throwable
 	 */

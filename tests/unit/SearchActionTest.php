@@ -10,7 +10,7 @@ use pozitronik\widgets\SearchAction;
 use pozitronik\widgets\SearchWidget;
 
 /**
- * @covers \pozitronik\widgets\SearchAction
+ * @covers SearchAction
  */
 class SearchActionTest extends Unit {
 
@@ -26,7 +26,7 @@ class SearchActionTest extends Unit {
 	}
 
 	/**
-	 * @covers \pozitronik\widgets\SearchAction::run
+	 * @covers SearchAction::run
 	 * @return void
 	 */
 	public function testRun():void {

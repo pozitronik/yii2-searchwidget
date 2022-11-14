@@ -21,7 +21,7 @@ class SearchTest extends Unit {
 	}
 
 	/**
-	 * @covers \pozitronik\widgets\SearchHelper::Search
+	 * @covers SearchHelper::Search
 	 * @return void
 	 */
 	public function testSearch():void {
