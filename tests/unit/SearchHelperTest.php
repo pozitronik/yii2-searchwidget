@@ -5,13 +5,9 @@ use Codeception\Test\Unit;
 use pozitronik\widgets\SearchHelper;
 
 /**
- *
+ * @covers \pozitronik\widgets\SearchHelper
  */
 class SearchHelperTest extends Unit {
-	/**
-	 * @var UnitTester
-	 */
-	protected $tester;
 
 	/**
 	 * @covers \pozitronik\widgets\SearchHelper::SwitchKeyboard
