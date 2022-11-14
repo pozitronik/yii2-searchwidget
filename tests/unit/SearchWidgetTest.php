@@ -8,11 +8,6 @@ use pozitronik\widgets\SearchWidget;
  */
 class SearchWidgetTest extends Unit {
 	/**
-	 * @var UnitTester
-	 */
-	protected $tester;
-
-	/**
 	 * @covers \pozitronik\widgets\SearchWidget::widget
 	 * @return void
 	 * @throws Throwable
