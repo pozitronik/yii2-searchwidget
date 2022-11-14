@@ -123,7 +123,7 @@ class SearchHelper {
 	/**
 	 * @param string $modelClass Имя класса ActiveRecord-модели (FQN), к которой подключается поиск
 	 * @param string|null $term Поисковый запрос
-	 * @param int $limit Лимит поиска
+	 * @param null|int $limit Лимит поиска
 	 * @param array|null $searchAttributes Массив атрибутов, в которых производим поиск в формате
 	 *    [
 	 *        'attributeName',
@@ -135,7 +135,7 @@ class SearchHelper {
 	 * @return array
 	 * @throws UnknownPropertyException
 	 */
-	public static function Search(string $modelClass, ?string $term, int $limit = SearchWidget::DEFAULT_LIMIT, ?array $searchAttributes = null, string $method = SearchWidget::DEFAULT_METHOD):array {
+	public static function Search(string $modelClass, ?string $term, ?int $limit = SearchWidget::DEFAULT_LIMIT, ?array $searchAttributes = null, string $method = SearchWidget::DEFAULT_METHOD):array {
 		/*В модели можно полностью переопределить поиск*/
 		if (method_exists($modelClass, $method)) return $modelClass::$method($term, $limit, $searchAttributes);
 
