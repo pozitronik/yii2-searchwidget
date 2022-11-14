@@ -113,7 +113,7 @@ class SearchHelper {
 			:$modelClass;
 		$searchFields = [[]];
 		foreach ($model->rules() as $rule) {
-			if ('string' === ArrayHelper::getValue($rule, '1')) {
+			if (in_array(ArrayHelper::getValue($rule, '1'), ['string', 'email'])) {
 				$searchFields[] = (array)$rule[0];
 			}
 		}
