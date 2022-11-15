@@ -19,7 +19,7 @@ class SearchAction extends Action {
 	 */
 	public function run(string $alias, ?string $term, ?string $componentName = null):array {
 		if (null !== $ARClass = SearchWidget::getConfigParam("models.{$alias}.class", null, $componentName)) {
-			return SearchHelper::Search(
+			return SearchWidget::Search(
 				$ARClass,
 				$term,
 				SearchWidget::getConfigParam("models.{$alias}.limit", SearchWidget::DEFAULT_LIMIT, $componentName),
