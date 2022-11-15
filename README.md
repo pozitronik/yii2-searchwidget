@@ -87,7 +87,8 @@ Searches for each model can be configured in there:
 
 - **class**: (string) the model class name.
 - **ajaxEndpoint**: the endpoint URL for current model searches requests. It overrides similar global option, but not set by default.
-- **method**: (string) if the model implements it own search method, its name can be specified here. See [Search method](#Search method) section for
+- **method**: (string) if the model implements it own search method, its name can be specified here. See [Search method](#Search method)
+  section for
   details. By default,
   model will be threatened as ActiveRecord and standard SQL-searches will be used.
 - **template**: (string) the search result raw template code. Ignored by default. If set, it has higher priority to **templateView**
@@ -95,9 +96,17 @@ Searches for each model can be configured in there:
 - **templateView** (string) the path to search result template view. If not set, then default template view will be used.
 - **header**: (string) the header for model search results list.
 - **limit** (null|int) the limit for search results, set null to disable limitations. Default value is 5.
-- **attributes**: (string[]) the list of model attributes names to search in them.
+- **attributes**: (string[]) the list of model attributes names to search in them. Each attribute can be specified in two methods: just by
+  attribute string name, or as array, where the first item is the attribute name, and the second item is attribute search type.
+Supported search types are:
+* `SearchWidget::SEARCH_TYPE_EQUAL`: attribute value must be equal to search term.
+* `SearchWidget::SEARCH_TYPE_LIKE`: attribute value must contain the search term.
+* `SearchWidget::SEARCH_TYPE_LIKE_BEGINNING`: attribute value must begins with the search term.
+* `SearchWidget::SEARCH_TYPE_LIKE_ENDING`: attribute value must ends to search term.
 
-Next, some example is given:
+All search types are case-insensitive.
+
+Next, some configuration example is given:
 
 ```php
 ...
@@ -113,7 +122,7 @@ Next, some example is given:
                 'limit' => 3,
                 'attributes' => [
                     'username',
-                    'email'
+                    ['email', SearchWidget::SEARCH_TYPE_LIKE_BEGINNING]
                 ]
             ],
             'Products' => [
@@ -124,7 +133,7 @@ Next, some example is given:
                 'limit' => null,
                 'attributes' => [
                     'name',
-                    'code'
+                     ['code', SearchWidget::SEARCH_TYPE_EQUAL]
                 ]
             ]
         ],
