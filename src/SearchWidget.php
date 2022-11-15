@@ -13,7 +13,8 @@ use yii\web\JsExpression;
 
 /**
  * Class SearchWidget
- * @property string $ajaxEndpoint url for all ajax requests
+ * @property string $componentName The component name with widget configuration ('searchWidget' is used by default)
+ * @property string $ajaxEndpoint The url for all ajax requests
  * @property array $models List of models searches configurations
  */
 class SearchWidget extends Widget {
