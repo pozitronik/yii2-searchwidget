@@ -112,7 +112,7 @@ class SearchHelper {
 		/*В модели можно полностью переопределить поиск*/
 		if (method_exists($modelClass, $method)) return $modelClass::$method($term, $limit, $searchAttributes);
 
-		if (null === $searchAttributes) $searchAttributes = self::AssumeSearchAttributes($modelClass);
+		if (null === $searchAttributes) $searchAttributes = static::AssumeSearchAttributes($modelClass);
 
 		/** @var ActiveRecord $modelClass */
 		if ((null === $pk = ArrayHelper::getValue($modelClass::primaryKey(), 0))) {
@@ -131,23 +131,23 @@ class SearchHelper {
 			}
 			$searchQuery->addSelect("{$tableName}.{$searchAttribute} as {$searchAttribute}");
 			switch ($searchType) {
-				case self::SEARCH_TYPE_EQUAL:
+				case static::SEARCH_TYPE_EQUAL:
 					$searchQuery->orWhere(["=", "{$tableName}.{$searchAttribute}", $term]);
 					$searchQuery->orWhere(["=", "{$tableName}.{$searchAttribute}", $swTermCyr]);
 					$searchQuery->orWhere(["=", "{$tableName}.{$searchAttribute}", $swTermLat]);
 				break;
-				case self::SEARCH_TYPE_LIKE:
+				case static::SEARCH_TYPE_LIKE:
 					$searchQuery->orWhere(["like", "{$tableName}.{$searchAttribute}", "%$term%", false]);
 					$searchQuery->orWhere(["like", "{$tableName}.{$searchAttribute}", "%$swTermCyr%", false]);
 					$searchQuery->orWhere(["like", "{$tableName}.{$searchAttribute}", "%$swTermLat%", false]);
 				break;
-				case self::SEARCH_TYPE_LIKE_BEGINNING:
+				case static::SEARCH_TYPE_LIKE_BEGINNING:
 					$searchQuery->orWhere(["like", "{$tableName}.{$searchAttribute}", "%$term", false]);
 					$searchQuery->orWhere(["like", "{$tableName}.{$searchAttribute}", "%$swTermCyr", false]);
 					$searchQuery->orWhere(["like", "{$tableName}.{$searchAttribute}", "%$swTermLat", false]);
 
 				break;
-				case self::SEARCH_TYPE_LIKE_ENDING:
+				case static::SEARCH_TYPE_LIKE_ENDING:
 					$searchQuery->orWhere(["like", "{$tableName}.{$searchAttribute}", "$term%", false]);
 					$searchQuery->orWhere(["like", "{$tableName}.{$searchAttribute}", "$swTermCyr%", false]);
 					$searchQuery->orWhere(["like", "{$tableName}.{$searchAttribute}", "$swTermLat%", false]);
