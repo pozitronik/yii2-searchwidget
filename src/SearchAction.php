@@ -17,14 +17,14 @@ class SearchAction extends Action {
 	 * @return string[][]
 	 * @throws UnknownPropertyException
 	 */
-	public function run(string $alias, ?string $term):array {
-		if (null !== $ARClass = SearchWidget::getConfigParam("models.{$alias}.class")) {
+	public function run(string $alias, ?string $term, ?string $componentName = null):array {
+		if (null !== $ARClass = SearchWidget::getConfigParam("models.{$alias}.class", null, $componentName)) {
 			return SearchHelper::Search(
 				$ARClass,
 				$term,
-				SearchWidget::getConfigParam("models.{$alias}.limit", SearchWidget::DEFAULT_LIMIT),
-				SearchWidget::getConfigParam("models.{$alias}.attributes"),
-				SearchWidget::getConfigParam("models.{$alias}.method", SearchWidget::DEFAULT_METHOD)
+				SearchWidget::getConfigParam("models.{$alias}.limit", SearchWidget::DEFAULT_LIMIT, $componentName),
+				SearchWidget::getConfigParam("models.{$alias}.attributes", null, $componentName),
+				SearchWidget::getConfigParam("models.{$alias}.method", SearchWidget::DEFAULT_METHOD, $componentName)
 			);
 		}
 		return [];
