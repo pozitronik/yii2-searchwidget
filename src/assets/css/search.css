@@ -28,4 +28,5 @@
 
 .tt-menu {
 	z-index: 10000 !important;
+	width: min-content !important;
 }
